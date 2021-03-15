@@ -1,0 +1,12 @@
+$primary: #284b63 !default;
+$secondary: #f1f3f6 !default;
+$warning: #ffb423 !default;
+$light: #ffffff !default;
+$dark: #353535 !default;
+
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Montserrat:wght@500&display=swap');
+
+$font-family-sans-serif: 'Karla', sans-serif !default;
+$font-family-monospace: 'Montserrat', sans-serif !default;
+
+@import '../node_modules/bootstrap/scss/bootstrap';

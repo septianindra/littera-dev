@@ -402,6 +402,67 @@ body {
   padding: 10px;
 }
 
+.question-title{
+  font-size: 16px;
+  color: grey;
+  margin-bottom: 2px;
+}
+
+.question{
+  font-size: 24px;
+  font-weight:bold;
+  margin-bottom: 6px;
+}
+
+.options{
+  list-style: none;
+  width: 100%;
+}
+
+.option{
+  display: flex;
+  margin-left: -32px;
+}
+
+.option-label-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  border-right: 3px solid grey;
+}
+
+.option-label{
+  font-size: 20px;
+}
+
+.option-input{
+  background-color: white;
+  border: none;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+
+
 /* Extra small devices <= 600px */
 @media only screen and (max-width: 600px) {
   .sidebar {

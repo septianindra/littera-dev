@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
 import Littera from '../src/assets/img/littera.png'
 import Logo from '../src/assets/img/icon.png'
@@ -50,22 +50,31 @@ function openCloseDropdown(event) {
   }
 }
 
-const sidebarWidth = document.getElementById('kolorbapak')
-console.log(if(sidebarWidth){})
-
 function App() {
+  const [toogle, setToogle] = useState(false)
   return (
     <React.Fragment>
       <Router>
-        <div className="sidebar" id="kolorbapak">
+        <div
+          className="sidebar"
+          onMouseEnter={() => {
+            setToogle(!toogle)
+          }}
+          onMouseLeave={() => {
+            setToogle(!toogle)
+          }}
+        >
           <div className="sidebar-logo">
             <img src={Littera} className="logo-custom" alt="Littera" />
           </div>
           <div className="sidebar-logo-mini">
             <img src={Logo} className="logo-custom" alt="Littera" />
           </div>
-          <div className="d-flex justify-content-center mt-5">
-            <button type="button" class="btn btn-primary w-75">
+          <div className="d-flex justify-content-center mt-5 ">
+            <button
+              type="button"
+              className={toogle ? 'btn btn-primary w-75 fade-in' : 'd-none'}
+            >
               <div className="d-flex justify-content-between">
                 <div>New customer</div>
                 <div>
@@ -126,9 +135,13 @@ function App() {
               </Link>
             </li>
           </ul>
-          <div className="d-flex justify-content-center px-4 mt-3">
-            <div className="card mt-4 w-100">
-              <div className="card-body btn bg-primary text-center rounded-3 text-white">
+          <div
+            className={
+              toogle ? 'd-flex justify-content-center px-4 mt-3 ' : 'd-none'
+            }
+          >
+            <div className="card mt-4 w-100 fade-in">
+              <div className="card-body btn bg-primary text-center rounded-3 text-white ">
                 <Link to="/proctoring">
                   <div className="">
                     <BsEye size="60" color="white" />
@@ -145,7 +158,13 @@ function App() {
         <div className="wrapper">
           <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-              <div class="navbar-brand" onClick={() => collapseSidebar()}>
+              <div
+                class="navbar-brand"
+                onClick={() => {
+                  collapseSidebar()
+                  setToogle(!toogle)
+                }}
+              >
                 <BsPlay /> <span>Welcome, Septian</span>
               </div>
               <div className="d-flex">

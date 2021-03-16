@@ -151,113 +151,84 @@ function ItemsTable() {
           New item
         </Link>
       </div>
-      <div className="card">
+
+      <div className="card mt-3">
         <div className="card-body">
-          <div className="d-flex justify-content-start">
-            <select
-              className="form-select "
-              value={pageSize}
-              onChange={(e) => {
-                setPageSize(Number(e.target.value))
-              }}
-              style={{ width: '120px' }}
-            >
-              {[5, 10, 15].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </select>
+          <div className="question-title">Question</div>
+          <div className="question">
+            Air, tanah, dan vegetasi di kawasan sungai merupakan komponen sumber
+            daya alam yang dapat diperbaharui lewat pengelolaan kawasan sungai.{' '}
           </div>
+          <ul className="options">
+            <li className="option">
+              <div class="option-label-wrap">
+                <label className="option-label">A</label>
+              </div>
+              <input
+                className="option-input"
+                type="text"
+                value="bebas"
+                disabled
+              />
+            </li>
+            <li className="option">
+              <div class="option-label-wrap">
+                <label className="option-label">B</label>
+              </div>
+              <input
+                className="option-input"
+                type="text"
+                value="tidak bebas"
+                disabled
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
 
-          <table
-            className="table mt-3 table-bordered table-hover"
-            {...getTableProps()}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr key={v4} {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      key={v4}
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                    >
-                      {column.render('Header')}
-                      <span>
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? '🔽'
-                            : '🔼'
-                          : ''}
-                      </span>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {page.map((row, i) => {
-                prepareRow(row)
-                return (
-                  <tr key={v4} {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td key={v4} {...cell.getCellProps()}>
-                          {cell.render('Cell')}
-                        </td>
-                      )
-                    })}
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-
-          <div className="row">
-            <div className="col-6">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li
-                    class="page-item"
-                    className="page-item"
-                    onClick={() => gotoPage(0)}
-                    disabled={!canPreviousPage}
-                  >
-                    <div class="page-link">{'<<'}</div>
-                  </li>
-                  <li
-                    class="page-item"
-                    className="page-item"
-                    onClick={() => previousPage()}
-                    disabled={!canPreviousPage}
-                  >
-                    <div class="page-link">{'<'}</div>
-                  </li>
-                  <li
-                    class="page-item"
-                    className="page-item"
-                    onClick={() => nextPage()}
-                    disabled={!canNextPage}
-                  >
-                    <div class="page-link">{'>'}</div>
-                  </li>
-                  <li
-                    class="page-item"
-                    className="page-item"
-                    onClick={() => gotoPage(pageCount - 1)}
-                    disabled={!canNextPage}
-                  >
-                    <div class="page-link">{'>>'}</div>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <div className="col-6">
-              <span className="float-end">
-                Page {pageIndex + 1} of {pageOptions.length}
-              </span>
-            </div>
-          </div>
+      <div className="row">
+        <div className="col-6">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li
+                class="page-item"
+                className="page-item"
+                onClick={() => gotoPage(0)}
+                disabled={!canPreviousPage}
+              >
+                <div class="page-link">{'<<'}</div>
+              </li>
+              <li
+                class="page-item"
+                className="page-item"
+                onClick={() => previousPage()}
+                disabled={!canPreviousPage}
+              >
+                <div class="page-link">{'<'}</div>
+              </li>
+              <li
+                class="page-item"
+                className="page-item"
+                onClick={() => nextPage()}
+                disabled={!canNextPage}
+              >
+                <div class="page-link">{'>'}</div>
+              </li>
+              <li
+                class="page-item"
+                className="page-item"
+                onClick={() => gotoPage(pageCount - 1)}
+                disabled={!canNextPage}
+              >
+                <div class="page-link">{'>>'}</div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div className="col-6">
+          <span className="float-end">
+            Items {pageIndex + 1} of {pageOptions.length}
+          </span>
         </div>
       </div>
     </>

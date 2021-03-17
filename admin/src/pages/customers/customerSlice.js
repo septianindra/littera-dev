@@ -58,13 +58,19 @@ export const deleteCustomer = createAsyncThunk(
 
 export const updateCustomer = createAsyncThunk(
   'customers/updateCustomer',
-  async (id, data) => {
-    const response = await supabase
+  async (updatedData) => {
+    const { data, error } = await supabase
       .from('customers')
-      .update(data)
-      .eq('name', id)
-    return response
-    console.log(response)
+      .update({
+        address: updatedData.address,
+        email: updatedData.email,
+        name: updatedData.name,
+        phone: updatedData.phone,
+        pic_name: updatedData.pic_name,
+      })
+      .eq('id', updatedData.id)
+    // if (error) return error
+    return data
   },
 )
 

@@ -30,6 +30,7 @@
     "react-scripts": "4.0.3",
     "react-table": "^7.6.3",
     "styled-components": "^5.2.1",
+    "sweetalert2": "^10.15.5",
     "uuidv4": "^6.2.6"
   },
   "scripts": {

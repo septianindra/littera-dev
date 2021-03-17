@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useParams } from 'react-router'
+import { Redirect, useHistory, useParams } from 'react-router'
 
 import { uuid } from 'uuidv4'
 import {
@@ -38,12 +38,6 @@ function EditCustomerForm() {
     }
   }, [customer])
 
-  // useEffect(() => {
-  //   if (customerByIdStatus === 'succeeded') {
-  //     dispatch(clearCustomerByIdStatus())
-  //   }
-  // }, [customerByIdStatus, dispatch])
-
   useEffect(() => {
     if (customerByIdStatus === 'idle') {
       dispatch(fetchCustomerById(id))
@@ -63,16 +57,13 @@ function EditCustomerForm() {
   const { register, handleSubmit, watch, errors } = useForm()
 
   const onSubmit = async (data) => {
-    console.log(data)
-    if (canSave) {
-      try {
-        const resultAction = await dispatch(updateCustomer(companyName, data))
-        unwrapResult(resultAction)
-      } catch (err) {
-        alert('Failed to save !')
-      } finally {
-        history.push(`/customer/edit-customer/${id}`)
-      }
+    data.id = id
+    // console.log(data)
+    try {
+      const resultAction = await dispatch(updateCustomer(data))
+      unwrapResult(resultAction)
+    } catch (err) {
+      alert('Failed to save !')
     }
   }
 

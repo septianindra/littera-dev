@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { createClient } from '@supabase/supabase-js'
-const supabaseUrl = 'https://dhhknjwtnaoyrjdgvqdj.supabase.co'
+const supabaseUrl = 'https://dhhknjwtnaoyrjdgvqdj.supabase1.co'
 const supabaseKey =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNTg1MjAxMCwiZXhwIjoxOTMxNDI4MDEwfQ.PZtrW8vYSjrpZQQ6OX-a-oD4jXHcmNWrmC7OPtBX-lc'
 const supabase = createClient(supabaseUrl, supabaseKey)

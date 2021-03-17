@@ -5,22 +5,21 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router'
 
-import { uuid } from 'uuidv4'
-import {
-  clearCustomerByIdStatus,
-  createNewCustomer,
-  fetchCustomerById,
-  updateCustomer,
-} from './customerSlice'
+import { fetchCustomerById, updateCustomer } from './customerSlice'
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function EditCustomerForm() {
   let { id } = useParams()
   const dispatch = useDispatch()
-  const history = useHistory()
+  // const history = useHistory()
   const customer = useSelector((state) => state.customers.customerById)
   const customerByIdStatus = useSelector(
     (state) => state.customers.customerByIdStatus,
   )
+
+  const MySwal = withReactContent(Swal)
 
   const [companyName, setCompanyName] = useState('')
   const [address, setAddress] = useState('')
@@ -52,27 +51,36 @@ function EditCustomerForm() {
   const onPhoneChanged = (e) => setPhone(e.target.value)
   const onEmailChanged = (e) => setEmail(e.target.value)
 
-  const canSave = true
-
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit } = useForm()
 
   const onSubmit = async (data) => {
     data.id = id
+    MySwal.fire({
+      title: 'Do you want to save the changes?',
+      showCancelButton: true,
+      confirmButtonText: `Save`,
+      denyButtonText: `Don't save`,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const resultAction = await dispatch(updateCustomer(data))
+          unwrapResult(resultAction)
+        } catch (err) {
+          if (err) {
+            MySwal.fire('Error!', '', 'error')
+          }
+        } finally {
+        }
+      }
+    })
     // console.log(data)
-    try {
-      const resultAction = await dispatch(updateCustomer(data))
-      unwrapResult(resultAction)
-    } catch (err) {
-      alert('Failed to save !')
-    }
   }
 
   return (
-    
+    <>
       <h4>Edit Customer</h4>
       <div className="card">
         <div className="card-body">
-          {/* New Customer Form */}
           <form className="row" onSubmit={handleSubmit(onSubmit)}>
             <div className="col-6">
               <label for="name" className="form-label">
@@ -151,10 +159,6 @@ function EditCustomerForm() {
               </button>
             </div>
           </form>
-          {/* New Customer Form */}
-          {/* Table Customer */}
-
-          {/* Table Customer */}
         </div>
       </div>
     </>

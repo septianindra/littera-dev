@@ -31,6 +31,7 @@
     "react-table": "^7.6.3",
     "styled-components": "^5.2.1",
     "sweetalert2": "^10.15.5",
+    "sweetalert2-react-content": "^3.3.1",
     "uuidv4": "^6.2.6"
   },
   "scripts": {

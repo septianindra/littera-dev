@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { createClient } from '@supabase/supabase-js'
+const supabaseUrl = 'https://dhhknjwtnaoyrjdgvqdj.supabase.co'
+const supabaseKey =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNTg1MjAxMCwiZXhwIjoxOTMxNDI4MDEwfQ.PZtrW8vYSjrpZQQ6OX-a-oD4jXHcmNWrmC7OPtBX-lc'
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 const initialState = {
   customerList: [],
@@ -22,7 +27,7 @@ const initialState = {
 export const fetchCustomers = createAsyncThunk(
   'customers/fetchCustomers',
   async () => {
-    const response = await axios.get('http://localhost:4000/customers/read')
+    const response = await supabase.from('customers').select()
     return response
   },
 )
@@ -30,9 +35,7 @@ export const fetchCustomers = createAsyncThunk(
 export const fetchCustomerById = createAsyncThunk(
   'customers/fetchCustomerById',
   async (id) => {
-    const response = await axios.get(
-      `http://localhost:4000/customers/read/${id}`,
-    )
+    const response = await supabase.from('customers').select('*').eq('id', id)
     return response
   },
 )
@@ -40,10 +43,7 @@ export const fetchCustomerById = createAsyncThunk(
 export const createNewCustomer = createAsyncThunk(
   'customers/createNewCustomer',
   async (data) => {
-    const response = await axios.post(
-      'http://localhost:4000/customers/create',
-      data,
-    )
+    const response = await supabase.from('customers').insert([data])
     return response
   },
 )
@@ -51,21 +51,20 @@ export const createNewCustomer = createAsyncThunk(
 export const deleteCustomer = createAsyncThunk(
   'customers/deleteCustomer',
   async (id) => {
-    const response = await axios.delete(
-      `http://localhost:4000/customers/delete/${id}`,
-    )
-    return response
+    await supabase.from('customers').delete().match({ id: id })
+    return id
   },
 )
 
 export const updateCustomer = createAsyncThunk(
   'customers/updateCustomer',
   async (id, data) => {
-    const response = await axios.put(
-      `http://localhost:4000/customers/update/${id}`,
-      data,
-    )
+    const response = await supabase
+      .from('customers')
+      .update(data)
+      .eq('name', id)
     return response
+    console.log(response)
   },
 )
 
@@ -125,9 +124,7 @@ const customersSlice = createSlice({
       state.customerDelete = action.payload.data
       const array = current(state.customerList)
       // eslint-disable-next-line eqeqeq
-      const temp = array.filter((element) => element.id != action.payload.data)
-      console.log(array)
-      console.log(temp)
+      const temp = array.filter((element) => element.id != action.payload)
       state.customerList = temp
     },
     [deleteCustomer.rejected]: (state, action) => {

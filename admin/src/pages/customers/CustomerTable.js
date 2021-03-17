@@ -13,6 +13,12 @@ import {
   fetchCustomers,
 } from './customerSlice'
 
+import { createClient } from '@supabase/supabase-js'
+const supabaseUrl = 'https://qmyykeopomzyoofnywor.supabase.co'
+const supabaseKey =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNTAyNTE1MywiZXhwIjoxOTMwNjAxMTUzfQ.mq7djRaC8o1BNlEagVUkJ-28XNbMmy9V6x7afHSZsGo'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
 function CustomerTable() {
   const dispatch = useDispatch()
   const customers = useSelector((state) => state.customers.customerList)
@@ -56,7 +62,7 @@ function CustomerTable() {
   const EditCostumer = (value) => (
     <div className="text-center">
       <div className="btn">
-        <Link to={`/edit-customer/${value.value}`}>
+        <Link to={`/customer/edit-customer/${value.value}`}>
           <BsPen />
         </Link>
       </div>
@@ -82,7 +88,7 @@ function CustomerTable() {
       },
       {
         Header: 'Company Name',
-        accessor: 'company_name',
+        accessor: 'name',
       },
       {
         Header: 'Address',

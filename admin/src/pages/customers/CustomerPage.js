@@ -4,6 +4,7 @@ import ParticipantForm from '../participant/ParticipantForm'
 import ParticipantTable from '../participant/ParticipantTable'
 import CustomerForm from './CustomerForm'
 import CustomerTable from './CustomerTable'
+import EditCustomerForm from './EditCustomerForm'
 
 function CustomerPage() {
   const [url, setUrl] = useState(window.location.href)
@@ -56,6 +57,9 @@ function CustomerPage() {
         </Route>
         <Route path="/customer/new-participant">
           <ParticipantForm />
+        </Route>
+        <Route path="/customer/edit-customer/:id">
+          <EditCustomerForm />
         </Route>
       </Switch>
     </div>

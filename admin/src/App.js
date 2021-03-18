@@ -55,15 +55,7 @@ function App() {
   return (
     <React.Fragment>
       <Router>
-        <div
-          className="sidebar"
-          onMouseEnter={() => {
-            setToogle(!toogle)
-          }}
-          onMouseLeave={() => {
-            setToogle(!toogle)
-          }}
-        >
+        <div className="sidebar">
           <div className="sidebar-logo">
             <img src={Littera} className="logo-custom" alt="Littera" />
           </div>
